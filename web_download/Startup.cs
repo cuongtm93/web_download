@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using web_download.Models;
 
 namespace web_download
 {
@@ -19,7 +20,7 @@ namespace web_download
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        public static IConfiguration Configuration { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -58,6 +59,10 @@ namespace web_download
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            var db = new WebDownloadDbContext();
+            db.Database.EnsureCreated();
+            db.SaveChanges();
         }
     }
 }
