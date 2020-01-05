@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using web_download.Models;
+using webdownload.Models;
 
-namespace web_download.Controllers
+namespace webdownload.Controllers
 {
     public class HomeController : Controller
     {

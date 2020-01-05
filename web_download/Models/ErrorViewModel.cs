@@ -1,6 +1,6 @@
 using System;
 
-namespace web_download.Models
+namespace webdownload.Models
 {
     public class ErrorViewModel
     {

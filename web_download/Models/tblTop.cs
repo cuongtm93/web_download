@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace web_download.Models
+namespace webdownload.Models
 {
     public class tblTop
     {
