@@ -12,6 +12,7 @@ namespace webdownload.Models
         [Key]
         public int ID { get; set; }
         public string Name { get; set; }
+        public string icon { get; set; }
         public int rating { get; set; }
         public string provider { get; set; }
         public string version { get; set; }
@@ -30,7 +31,6 @@ namespace webdownload.Models
 
         public TblCategory category { get; set; }
 
-        [DefaultValue(false)]
-        public bool Visible { get; set; }
+        public int Visible { get; set; }
     }
 }

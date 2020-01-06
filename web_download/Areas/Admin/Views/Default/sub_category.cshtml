@@ -1,0 +1,34 @@
+﻿@model IQueryable<TblCategory>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 rgba-green-strong">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="text-muted">@item.name</h5>
+                    <div class="metric-value d-inline-block">
+                        <h1 class="mb-1">
+                            <a href="@Url.Action("sub_category_show_list","default", new {friendly_url = item.url})">
+                                <img src="@Url.Content(@item.icon)" style="width : 5em; height :5em;"   />
+                            </a>
+                        </h1>
+                    </div>
+                    <div class="metric-label d-inline-block float-right text-success font-weight-bold">
+                        <div class="input-group-append be-addon">
+                            <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle" aria-expanded="false">Tuỳ chọn</button>
+                            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(696px, 41px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                <a href="#" class="dropdown-item">Xem</a>
+                                <a href="#" class="dropdown-item">Sửa</a>
+                                <div class="dropdown-divider"></div>
+                                <a href="#" class="dropdown-item">Xoá</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    }
+
+</div>

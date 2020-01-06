@@ -1,35 +1,77 @@
-﻿@{
+﻿@{ 
     Layout = null;
 }
+<!doctype html>
+<html lang="en">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Admin - Đăng nhập</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-</head>
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col-6 col-md-6 col-sm-12" style="margin : 15% auto">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Login</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link href="/assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/libs/css/style.css">
+    <link rel="stylesheet" href="/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
 
-                @using (Html.BeginForm("LoginAsync", "Account", FormMethod.Post))
+        body {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- login page  -->
+    <!-- ============================================================== -->
+    <div class="splash-container">
+        <div class="card ">
+            <div class="card-header text-center"><a href="../index.html"><img class="logo-img" src="/assets/images/logo.png" alt="logo"></a><span class="splash-description">Vui lòng nhập thông tin đăng nhập.</span></div>
+            <div class="card-body">
+                @using (Html.BeginForm("LoginAsync", "Account", method: FormMethod.Post))
                 {
-                    @Html.AntiForgeryToken()
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">Email address</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" name="username" placeholder="name@example.com">
+                        <input class="form-control form-control-lg" id="username" name="username" type="text" placeholder="Username" autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">Mật khẩu</label>
-                        <input type="password" class="form-control" id="exampleFormControlInput1" name="password" placeholder="name@example.com">
+                        <input class="form-control form-control-lg" id="password" name="password" type="password" placeholder="Password">
                     </div>
-                    <input type="hidden" name="ReturnUrl" value="@Context.Request.Query["ReturnUrl"]" />
-                    <button class="btn btn-primary" type="submit">Đăng nhập</button>
+                    <div class="form-group">
+                        <label class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" name="remember"><span class="custom-control-label">Remember Me</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Đăng nhập</button>
                 }
+            </div>
+            <div class="card-footer bg-white p-0  ">
+                <div class="card-footer-item card-footer-item-bordered">
+                    <a href="#" class="footer-link">Create An Account</a>
+                </div>
+                <div class="card-footer-item card-footer-item-bordered">
+                    <a href="#" class="footer-link">Quên mật khẩu</a>
+                </div>
             </div>
         </div>
     </div>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- ============================================================== -->
+    <!-- end login page  -->
+    <!-- ============================================================== -->
+    <!-- Optional JavaScript -->
+    <script src="/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 </body>
+
 </html>

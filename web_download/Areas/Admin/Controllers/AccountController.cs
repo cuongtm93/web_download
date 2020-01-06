@@ -43,7 +43,7 @@ namespace webdownload.Areas.Admin.Controllers
         }
         [AutoValidateAntiforgeryToken]
         [HttpPost]
-        public async Task<IActionResult> LoginAsync(string username, string password, string ReturnUrl)
+        public async Task<IActionResult> LoginAsync(string username, string password, bool remember)
         {
             var code = Encode(password);
 
