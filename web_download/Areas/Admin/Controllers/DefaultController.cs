@@ -18,7 +18,7 @@ namespace webdownload.Areas.Admin.Controllers
         {
             return View();
         }
-        
+
         public IActionResult sub_category(string friendly_url)
         {
             var cateogry = db.TblCategory.First(r => r.url == friendly_url);
@@ -30,11 +30,24 @@ namespace webdownload.Areas.Admin.Controllers
         {
             const int per_page = 3;
             var cateogry = db.TblCategory.First(r => r.url == friendly_url);
-            var last_page = db.TblSoftware.Count() / per_page + 1;
+            var last_page = 0;
+            if ((db.TblSoftware.Count() % per_page) >= 1)
+            {
+                last_page = db.TblSoftware.Count() / per_page + 1;
+            }
+            else
+            {
+                last_page = db.TblSoftware.Count() / per_page ;
+            }
+            
             if (page.HasValue == false) page = last_page;
-
-            var softwares = db.TblSoftware.Where(r => r.category.ID == cateogry.ID).Skip((page.Value - 1) * per_page).Take(per_page).ToList();
-            var parentId = db.TblCategory.Where(r => r.ID == cateogry.ID).Select(r=>r.Parent.ID);
+            var softwares = new List<TblSoftware>();
+            if (page > 0)
+            {
+                softwares = db.TblSoftware.Where(r => r.category.ID == cateogry.ID).Skip((page.Value - 1) * per_page).Take(per_page).ToList();
+            }
+                        
+            var parentId = db.TblCategory.Where(r => r.ID == cateogry.ID).Select(r => r.Parent.ID);
             cateogry.Parent = db.TblCategory.First(r => r.ID == parentId.First());
             var model = new subcategorylist_viewmodel()
             {
@@ -60,6 +73,56 @@ namespace webdownload.Areas.Admin.Controllers
             {
                 message = "ok"
             });
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public JsonResult AddNewSoftware_Proc(TblSoftware model)
+        {
+            try
+            {
+                int? related_downloadID = null;
+                var category_id = int.Parse(Request.Form["categoryID"][0]);
+                model.category = db.TblCategory.First(r => r.ID == category_id);
+                if (Request.Form["related_downloadID"].Count > 0 && !String.IsNullOrWhiteSpace(Request.Form["related_downloadID"][0]))
+                {
+                    related_downloadID = int.Parse(Request.Form["related_downloadID"][0]);
+                    model.related_download = db.TblSoftware.First(r => r.ID == related_downloadID.Value);
+
+                }
+                var _new = db.TblSoftware.Add(model);
+                db.SaveChanges();
+                return Json(new
+                {
+                    message = "ok",
+                    _new = _new
+                });
+            }
+            catch (Exception e)
+            {
+                return Json(new
+                {
+                    message = e.Message
+                });
+            } 
+            
+            
+        }
+        public IActionResult AddNewSoftware(string CategoryId)
+        {
+            ViewBag.CategoryId = CategoryId;
+            return View();
+        }
+
+        [HttpGet]
+        public JsonResult Autocomplete(string query)
+        {
+            var data = db.TblSoftware.Where(r => r.Name.Contains(query)).Select(r => new
+            {
+                data = r.ID,
+                value = r.Name
+            });
+            return Json(new { query = query, suggestions = data });
         }
     }
 }

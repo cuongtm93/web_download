@@ -1,0 +1,259 @@
+﻿
+
+<form enctype="multipart/form-data" asp-action="Upload" asp-controller="FileManager" method="post" id="file_upload_form">
+    <input type="file" style="visibility:hidden; display:none" id="FileUpload" />
+</form>
+
+@using (Html.BeginForm("AddNewSoftware_Proc", "Default", method: FormMethod.Post, htmlAttributes: new { id = "AddNewSoftware_Proc_form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="card col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card-header">
+                <h3>Tạo mới</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-xs-12 col-md-12 col-lg-2">
+                        <a href="#"><img src="~/assets/images/eco-product-img-1.png" id="icon" style="width : 100% ; height : 100%" data-toggle="modal" data-target="#myModal" /></a>
+                        <input type="hidden" name="icon" value="" />
+                        <!-- The Modal -->
+                        <div class="modal" id="myModal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Tuỳ chọn ảnh icon</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        <button type="button" class="btn btn-block" data-toggle="tooltip" data-placement="top" title="Vui lòng copy đường dẫn ảnh vào clipboard rồi ấn vào đây" id="from_clipboard">Copy ảnh từ Url</button>
+                                        <button type="button" class="btn btn-block" onclick="$('#FileUpload').click()">Upload ảnh</button>
+                                        <button type="button" class="btn btn-block">Chọn ảnh trong thư viện</button>
+                                        <button type="button" class="btn btn-block" id="set_default_image">
+                                            Ảnh mặc định
+                                        </button>
+
+                                    </div>
+
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary">Xác nhận</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-xs-12 col-md-12 col-lg-5">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Tên phần mềm </label>
+                            <input type="text" name="Name" class="form-control" placeholder="Tên phần mềm">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Hệ điều hành</label>
+                            <input type="text" name="operating_systems" class="form-control" placeholder="Hệ điều hành" />
+                        </div>
+                    </div>
+                    <div class="col-12 col-xs-12 col-md-12 col-lg-5">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Phiên bản </label>
+                            <input type="text" name="version" class="form-control" placeholder="Phiên bản">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Nhà cung cấp</label>
+                            <input type="text" name="provider" class="form-control" placeholder="Nhà cung cấp">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-xs-12 col-md-12 col-lg-12">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Friendly Url</label>
+                            <input type="text" name="friendly_url" class="form-control" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Url download</label>
+                            <textarea name="main_download" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-xs-12 col-md-12 col-lg-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Phần mềm liên quan </label>
+                            <input type="text" id="related_downloadID" class="form-control" placeholder="Gõ tên phần mềm liên quan">
+                            <input type="hidden" name="related_downloadID"/>
+
+                            <input type="hidden" name="categoryID" value="@ViewBag.CategoryId" />
+
+                        </div>
+                    </div>
+                    <div class="col-12 col-xs-12 col-md-12 col-lg-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Trạng thái hiển thị</label>
+                            <div class="checkbox">
+                                <label><input type="checkbox" value="1" name="Visible"> Hiện lên web </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-xs-12 col-md-12 col-lg-12">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Giới thiệu phần mềm</label>
+                            <div id="editor"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-xs-12 col-md-8 col-lg-8 col-xl-8"></div>
+                    <div class="col-12 col-xs-12 col-md-4 col-lg-4 col-xl-4">
+                        <button type="button" class="col-md-5 btn btn-success mt-1" id="btnSave">Lưu</button>
+                        <button type="button" class="col-md-5 btn btn-default mt-1" onclick="javascript: GoBackWithRefresh() ">Huỷ bỏ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<style>
+    #overlay {
+        position: fixed; /* Sit on top of the page content */
+        display: none; /* Hidden by default */
+        width: 100%; /* Full width (cover the whole page) */
+        height: 100%; /* Full height (cover the whole page) */
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+        z-index: 1000; /* Specify a stack order in case you're using a different order for other elements */
+        cursor: pointer; /* Add a pointer on hover */
+    }
+</style>
+<div id="overlay" onclick="overlay_off()">Đang cập nhật vui lòng chờ đợi</div>
+<script>
+    function GoBackWithRefresh() {
+        if ('referrer' in document) {
+            window.location = document.referrer;
+            /* OR */
+            //location.replace(document.referrer);
+        } else {
+            window.history.back();
+        }
+    }
+
+    function overlay_on() {
+        document.getElementById("overlay").style.display = "block";
+    }
+
+    function overlay_off() {
+        document.getElementById("overlay").style.display = "none";
+    }
+</script>
+
+@section script{
+    <script>
+
+        $( "#set_default_image" ).click(function() {
+            $("#icon").attr('src', '/assets/images/eco-product-img-1.png');
+        });
+
+        $("#btnSave").click(function () {
+            var formData = $('#AddNewSoftware_Proc_form').serialize();
+            $.ajax({
+                url: '@Url.Action("AddNewSoftware_Proc","Default")',
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response);
+                }
+            });
+        });
+
+        $('#icon').on('load', function () {
+            document.getElementsByName('icon')[0].value = $('#icon').attr('src');
+        });
+
+        $('#FileUpload').change(function () {
+            var fileInput = $('#FileUpload')[0];
+            var file = fileInput.files[0];
+            var formData = new FormData();
+            formData.append('file', file);
+            console.log(formData);
+            overlay_on();
+            $.ajax({
+                url: '@Url.Action("UploadFile","FileManager")',
+                type: 'POST',
+                data: formData,
+                async: true,
+                cache: false,
+                contentType: false,
+                enctype: 'multipart/form-data',
+                processData: false,
+                success: function (response) {
+                    console.log('path: ' + response.fullpath);
+                    $('#icon').attr('src', response.fullpath);
+                    $('#myModal').modal("toggle");
+                    overlay_off();
+                }
+            });
+        });
+
+        document.querySelector('#from_clipboard').addEventListener('click', async event => {
+          if (!navigator.clipboard) {
+            // Clipboard API not available
+              alert("Trình duyệt không hỗ trợ clipboard!");
+            return
+          }
+          try {
+            const text = await navigator.clipboard.readText()
+            overlay_on();
+            $.ajax({
+                url: '@Url.Action("Upload_From_ClipboardAsync","FileManager")',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    url: text
+                }
+            }).done(function (ketqua) {
+                if (ketqua.message === 'ok') {
+                    console.log('path: ' + ketqua.fullpath);
+                    $('#icon').attr('src', ketqua.fullpath);
+                    $('#myModal').modal("toggle");
+                    overlay_off();
+                }
+
+
+            });
+          } catch (err) {
+            console.error('Failed to copy!', err)
+          }
+        })
+        $('#related_downloadID').autocomplete({
+            serviceUrl: '@Url.Action("autocomplete","default")',
+            onSelect: function (suggestion) {
+                $('#related_downloadID').val(suggestion.value);
+                document.getElementsByName('related_downloadID')[0].value = suggestion.data;
+                console.log('You selected: ' + suggestion.value + ', ' + suggestion.data);
+            }
+        });
+
+        ClassicEditor
+            .create(document.querySelector('#editor'), {
+                // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
+            })
+            .then(editor => {
+                window.editor = editor;
+            })
+            .catch(err => {
+                console.error(err.stack);
+            });
+    </script>
+}

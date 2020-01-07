@@ -155,15 +155,31 @@
 /* 0.1. Body / Typography
    ========================================================================== */
 
-body {
-    font-family: 'Tahoma','Arial';
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    color: #71748d;
-    background-color: #efeff6;
-    -webkit-font-smoothing: antialiased;
+.autocomplete-suggestion {
+    overflow: hidden;
+    padding: 5px 15px;
+    white-space: nowrap;
+    background-color : white;
 }
+
+
+
+    .autocomplete-suggestions :hover {
+        cursor : pointer;
+        background: #efeff6;
+    }
+
+
+
+    body {
+        font-family: 'Tahoma','Arial';
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        color: #71748d;
+        background-color: #efeff6;
+        -webkit-font-smoothing: antialiased;
+    }
 
 h1,
 h2,
@@ -173,7 +189,7 @@ h5,
 h6 {
     color: #3d405c;
     margin: 0px 0px 15px 0px;
-    font-family: 'Times New Roman';
+    font-family: Tahoma;
 }
 
 h1 {
@@ -4730,7 +4746,7 @@ Pills vertical
     .table thead th,
     .table th {
         color: #3d405c;
-        font-family: 'Circular Std Medium';
+        font-family: Tahoma;
     }
 
 .table-bordered {

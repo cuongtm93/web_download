@@ -106,6 +106,14 @@ namespace webdownload
             });
 
 
+            // Use this code if you want the App_Data folder to be in wwwroot
+            //string baseDir = env.WebRootPath;
+
+            // Use this if you want App_Data off your project root folder
+            string baseDir = env.ContentRootPath;
+
+            AppDomain.CurrentDomain.SetData("DataDirectory",  env.ContentRootPath );
+
 
             var db = new WebDownloadDbContext();
             db.Database.EnsureCreated();
