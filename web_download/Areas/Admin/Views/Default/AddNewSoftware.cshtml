@@ -87,7 +87,7 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Phần mềm liên quan </label>
                             <input type="text" id="related_downloadID" class="form-control" placeholder="Gõ tên phần mềm liên quan">
-                            <input type="hidden" name="related_downloadID"/>
+                            <input type="hidden" name="related_downloadID" />
 
                             <input type="hidden" name="categoryID" value="@ViewBag.CategoryId" />
 
@@ -107,6 +107,7 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Giới thiệu phần mềm</label>
                             <div id="editor"></div>
+                            <input type="hidden" name="text" id="text" />
                         </div>
                     </div>
                 </div>
@@ -165,6 +166,7 @@
         });
 
         $("#btnSave").click(function () {
+            $('#text').val(editor.getData());
             var formData = $('#AddNewSoftware_Proc_form').serialize();
             $.ajax({
                 url: '@Url.Action("AddNewSoftware_Proc","Default")',
