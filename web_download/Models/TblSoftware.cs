@@ -11,6 +11,7 @@ namespace webdownload.Models
     {
         [Key]
         public int ID { get; set; }
+
         public string Name { get; set; }
         public string icon { get; set; }
         public int rating { get; set; }

@@ -114,7 +114,7 @@ namespace webdownload.Areas.Admin.Controllers
                 db.SaveChanges();
                 return Json(new
                 {
-                    message = "ok",
+                    message = "Tạo mới thành công!",
                 });
             }
             catch (Exception e)
