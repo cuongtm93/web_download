@@ -63,8 +63,31 @@ namespace webdownload.Areas.Admin.Controllers
 
             return View(model);
         }
+        public IActionResult Add()
+        {
+            var model = new CategoryIndexViewmodel()
+            {
+                TopCategories = db.TblCategory.Where(r => r.ParentID.HasValue == false).ToList()
+            };
+            return View(model);
+        }
+        public IActionResult Add_Proc(TblCategory model)
+        {
+            if(model.ParentID == -1)
+            {
+                model.ParentID = null;
+            }
+            db.TblCategory.Add(model);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
         public IActionResult Edit_Proc(TblCategory model)
         {
+            if (model.ParentID == -1)
+            {
+                model.ParentID = null;
+            }
+
             db.Entry(model).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
