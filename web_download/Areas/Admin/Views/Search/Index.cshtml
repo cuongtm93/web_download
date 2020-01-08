@@ -1,0 +1,61 @@
+﻿
+@using webdownload.Areas.Admin.Models
+@model IndexSearchViewmodel
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-header page-breadcrumb">
+                <blockquote>
+                    Từ khoá "@Model.Keyword" :   Tìm thấy <b>@Model.found</b> trong tổng số <b>@Model.total</b> phần mềm
+                </blockquote>
+            </div>
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Icon</th>
+                            <th scope="col">Tên</th>
+                            <th scope="col">Bản quyền</th>
+                            <th scope="col">Dung lượng</th>
+                        </tr>
+                    </thead>
+                    <tbody id="checkboxes">
+                        @foreach (var software in Model.Softwares)
+                        {
+                            <tr>
+                                <td>
+                                    <a href="@Url.Action("EditSoftware","Default", new { Id = software.ID })">
+                                        <img src="@Url.Content(software.icon)" style="width : 50px; height : 50px;" />
+                                    </a>
+
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("EditSoftware","Default", new { Id = software.ID })">
+                                        @software.Name
+                                    </a>
+                                </td>
+                                @if (software.lience == 0)
+                                {
+                                    <td>Miễn phí</td>
+                                }
+                                else
+                                {
+                                    <td>Bản quyền</td>
+                                }
+
+                                <td>@(software.size / 1024) MB </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section script{
+    <script>
+
+    </script>
+}

@@ -22,7 +22,7 @@ namespace webdownload.Areas.Admin.Controllers
         public IActionResult sub_category(string friendly_url)
         {
             var cateogry = db.TblCategory.First(r => r.url == friendly_url);
-            var sub_categories = db.TblCategory.Where(r => r.Parent == cateogry);
+            var sub_categories = db.TblCategory.Where(r => r.ParentID == cateogry.ID);
             return View(sub_categories);
         }
 
@@ -30,8 +30,9 @@ namespace webdownload.Areas.Admin.Controllers
         {
             const int per_page = 3;
             var cateogry = db.TblCategory.First(r => r.url == friendly_url);
+            ViewBag.Category = cateogry;
             var last_page = 0;
-            if ((db.TblSoftware.Count() % per_page) >= 1)
+            if ((db.TblSoftware.Count() % per_page) > 0)
             {
                 last_page = db.TblSoftware.Count() / per_page + 1;
             }
@@ -40,18 +41,19 @@ namespace webdownload.Areas.Admin.Controllers
                 last_page = db.TblSoftware.Count() / per_page ;
             }
             
-            if (page.HasValue == false) page = last_page;
+            if (page.HasValue == false) page = 1;
             var softwares = new List<TblSoftware>();
             if (page > 0)
             {
-                softwares = db.TblSoftware.Where(r => r.category.ID == cateogry.ID).Skip((page.Value - 1) * per_page).Take(per_page).ToList();
+                softwares = db.TblSoftware.Where(r => r.categoryID == cateogry.ID).Skip((page.Value - 1) * per_page).Take(per_page).ToList();
             }
-                        
-            var parentId = db.TblCategory.Where(r => r.ID == cateogry.ID).Select(r => r.Parent.ID);
-            cateogry.Parent = db.TblCategory.First(r => r.ID == parentId.First());
+
+            var parent = db.TblCategory.Single(r => r.ID == cateogry.ParentID);
+            ViewBag.Parent = parent;
+            cateogry.ParentID = parent.ID;
             var model = new subcategorylist_viewmodel()
             {
-                Category = cateogry,
+                CategoryID = cateogry.ID,
                 page = page.Value,
                 page_count = last_page,
                 softwares = softwares.ToList()
@@ -62,17 +64,28 @@ namespace webdownload.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult delete_softwares(string[] checkeds)
         {
-            foreach (var id in checkeds)
+            try
             {
-                var val = int.Parse(id);
-                var item = db.TblSoftware.First(r => r.ID == val);
-                db.TblSoftware.Remove(item);
-                db.SaveChanges();
+                foreach (var id in checkeds)
+                {
+                    var val = int.Parse(id);
+                    var item = db.TblSoftware.First(r => r.ID == val);
+                    db.TblSoftware.Remove(item);
+                    db.SaveChanges();
+                }
+                return Json(new
+                {
+                    message = "ok" 
+                });
             }
-            return Json(new
+            catch (Exception e)
             {
-                message = "ok"
-            });
+                return Json(new
+                {
+                    message = e.InnerException.Message
+                });
+            }
+            
         }
 
         [HttpPost]
@@ -83,11 +96,18 @@ namespace webdownload.Areas.Admin.Controllers
             {
                 int? related_downloadID = null;
                 var category_id = int.Parse(Request.Form["categoryID"][0]);
-                model.category = db.TblCategory.First(r => r.ID == category_id);
+                if (string.IsNullOrWhiteSpace(model.Name))
+                {
+                    return Json(new
+                    {
+                        message = "Vui lòng điền tên",
+                    });
+                }
+                model.categoryID = category_id;
                 if (Request.Form["related_downloadID"].Count > 0 && !String.IsNullOrWhiteSpace(Request.Form["related_downloadID"][0]))
                 {
                     related_downloadID = int.Parse(Request.Form["related_downloadID"][0]);
-                    model.related_download = db.TblSoftware.First(r => r.ID == related_downloadID.Value);
+                    model.related_downloadID = related_downloadID.Value;
 
                 }
                 var _new = db.TblSoftware.Add(model);
@@ -95,7 +115,6 @@ namespace webdownload.Areas.Admin.Controllers
                 return Json(new
                 {
                     message = "ok",
-                    _new = _new
                 });
             }
             catch (Exception e)
@@ -114,6 +133,52 @@ namespace webdownload.Areas.Admin.Controllers
             return View();
         }
 
+        public IActionResult EditSoftware(int Id)
+        {
+            var model = db.TblSoftware.Find(Id);
+            ViewBag.related_download = db.TblSoftware.Find(model.related_downloadID);
+            return View(model);
+        }
+        public JsonResult EditSoftware_Proc(TblSoftware model)
+        {
+            try
+            {
+                var c = db.TblSoftware.Find(model.ID);
+                c.icon = model.icon;
+                c.main_download = model.main_download;
+                c.Name = model.Name;
+                if (string.IsNullOrWhiteSpace(c.Name))
+                {
+                    return Json(new
+                    {
+                        message = "Vui lòng đặt tên",
+                    });
+                }
+                c.operating_systems = model.operating_systems;
+                c.provider = model.provider;
+                c.related_downloadID = model.related_downloadID;
+                c.text = model.text;
+                c.version = model.version;
+                c.Visible = model.Visible;
+                c.size = model.size;
+                c.lience = model.lience;
+                db.SaveChanges();
+                return Json(new
+                {
+                    message = "Cập nhật thành công",
+                });
+
+            }
+            catch (Exception e)
+            {
+                return Json(new
+                {
+                    message = e.Message,
+                });
+                throw;
+            }
+            
+        }
         [HttpGet]
         public JsonResult Autocomplete(string query)
         {

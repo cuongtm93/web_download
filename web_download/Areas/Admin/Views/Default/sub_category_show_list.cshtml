@@ -6,10 +6,10 @@
             <div class="card-header page-breadcrumb">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">@Model.Category.Parent.name</a></li>
+                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">@ViewBag.Parent.name</a></li>
                         <li class="breadcrumb-item">
                             <a href="#" class="breadcrumb-link">
-                                <b>@Model.Category.name</b>
+                                <b>@ViewBag.Category.name</b>
                             </a>
                         </li>
                     </ol>
@@ -36,9 +36,16 @@
                                     <input type="checkbox" class="messageCheckbox" name="sport" value="@software.ID" />
                                 </th>
                                 <td>
-                                    <img src="@Url.Content(software.icon)" style="width : 50px; height : 50px;" />
+                                    <a href="@Url.Action("EditSoftware","Default", new { Id = software.ID })">
+                                        <img src="@Url.Content(software.icon)" style="width : 50px; height : 50px;" />
+                                    </a>
+
                                 </td>
-                                <td>@software.Name</td>
+                                <td>
+                                    <a href="@Url.Action("EditSoftware","Default", new { Id = software.ID })">
+                                        @software.Name
+                                    </a>
+                                </td>
                                 @if (software.lience == 0)
                                 {
                                     <td>Miễn phí</td>
@@ -65,7 +72,7 @@
             <i class="fa fa-trash" aria-hidden="true"></i>
             Xoá
         </div>
-        <a href="@Url.Action("AddNewSoftWare","Default",new { CategoryId = Model.Category.ID})" style="text-decoration : none">
+        <a href="@Url.Action("AddNewSoftWare","Default",new { CategoryId = Model.CategoryID})" style="text-decoration : none">
             <div class="btn btn-outline-success float-right mr-1" style="width : 110px;">
                 <i class="fa fa-plus" aria-hidden="true"></i>
                 Thêm mới
@@ -101,9 +108,11 @@
                             data: {
                                 checkeds: items
                             }
-                        }).done(function (ketqua) {
-                            if (ketqua.message === 'ok')
+                        }).done(function (response) {
+                            if (response.message === 'ok')
                                 location.reload();
+                            else
+                                vex.dialog.alert({ className: 'vex-theme-os example', message: response.message });
                         });
                         console.log('Successfully destroyed the planet.')
                     } else {

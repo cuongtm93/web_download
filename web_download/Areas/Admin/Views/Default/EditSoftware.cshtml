@@ -1,22 +1,23 @@
-﻿
+﻿@model webdownload.Models.TblSoftware
 
 <form enctype="multipart/form-data" asp-action="Upload" asp-controller="FileManager" method="post" id="file_upload_form">
     <input type="file" style="visibility:hidden; display:none" id="FileUpload" />
 </form>
 
-@using (Html.BeginForm("AddNewSoftware_Proc", "Default", method: FormMethod.Post, htmlAttributes: new { id = "AddNewSoftware_Proc_form" }))
+@using (Html.BeginForm("EditSoftware_Proc", "Default", method: FormMethod.Post, htmlAttributes: new { id = "EditSoftware_Proc_form" }))
 {
     @Html.AntiForgeryToken()
     <div class="row">
         <div class="card col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card-header">
-                <h3>Tạo mới</h3>
+                <h3>Cập nhật : @Model.Name</h3>
+                <input type="hidden" name="ID" value="@Model.ID" />
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-12 col-xs-12 col-md-12 col-lg-2">
-                        <a href="#"><img src="~/assets/images/eco-product-img-1.png" id="icon" style="width : 100% ; height : 100%" data-toggle="modal" data-target="#myModal" /></a>
-                        <input type="hidden" name="icon" value="" />
+                        <a href="#"><img src="@Model.icon" id="icon" style="width : 100% ; height : 100%" data-toggle="modal" data-target="#myModal" /></a>
+                        <input type="hidden" name="icon" value="@Model.icon" />
                         <!-- The Modal -->
                         <div class="modal" id="myModal">
                             <div class="modal-dialog">
@@ -52,21 +53,21 @@
                     <div class="col-12 col-xs-12 col-md-12 col-lg-5">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Tên phần mềm </label>
-                            <input type="text" name="Name" class="form-control" placeholder="Tên phần mềm">
+                            <input type="text" name="Name" class="form-control" placeholder="Tên phần mềm" value="@Model.Name">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Hệ điều hành</label>
-                            <input type="text" name="operating_systems" class="form-control" placeholder="Hệ điều hành" />
+                            <input type="text" name="operating_systems" class="form-control" placeholder="Hệ điều hành" value="@Model.operating_systems" />
                         </div>
                     </div>
                     <div class="col-12 col-xs-12 col-md-12 col-lg-5">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Phiên bản </label>
-                            <input type="text" name="version" class="form-control" placeholder="Phiên bản">
+                            <input type="text" name="version" class="form-control" placeholder="Phiên bản" value="@Model.version">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nhà cung cấp</label>
-                            <input type="text" name="provider" class="form-control" placeholder="Nhà cung cấp">
+                            <input type="text" name="provider" class="form-control" placeholder="Nhà cung cấp" value="@Model.provider">
                         </div>
                     </div>
                 </div>
@@ -74,7 +75,7 @@
                     <div class="col-12 col-xs-12 col-md-12 col-lg-12">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Url download</label>
-                            <textarea name="main_download" class="form-control"></textarea>
+                            <textarea name="main_download" class="form-control">@Model.main_download</textarea>
                         </div>
                     </div>
                 </div>
@@ -82,16 +83,34 @@
                     <div class="col-12 col-xs-12 col-md-12 col-lg-6">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Phần mềm liên quan </label>
-                            <input type="text" id="related_downloadID" class="form-control" placeholder="Gõ tên phần mềm liên quan">
-                            <input type="hidden" name="related_downloadID" />
 
-                            <input type="hidden" name="categoryID" value="@ViewBag.CategoryId" />
+                            @if (Model.related_downloadID != null)
+                            {
+                                <input type="hidden" name="related_downloadID" value="@Model.related_downloadID" />
+                                <input type="text" id="related_downloadID" class="form-control" placeholder="Gõ tên phần mềm liên quan" value="@ViewBag.related_download.Name">
+                            }
+                            else
+                            {
+                                <input type="hidden" name="related_downloadID" />
+                                <input type="text" id="related_downloadID" class="form-control" placeholder="Gõ tên phần mềm liên quan">
+
+                            }
+                            <input type="hidden" name="categoryID" value="@Model.categoryID" />
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Bản quyền </label>
                             <select class="custom-select" id="lience" name="lience">
-                                <option value="0" selected>Miễn phí</option>
-                                <option value="1">Dùng thử</option>
+                                @if (Model.lience == 0)
+                                {
+                                    <option value="0" selected>Miễn phí</option>
+                                    <option value="1">Dùng thử</option>
+                                }
+                                else
+                                {   // lienced
+                                    <option value="0">Miễn phí</option>
+                                    <option value="1" selected>Dùng thử</option>
+                                }
+
                             </select>
                         </div>
                     </div>
@@ -99,7 +118,17 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Trạng thái hiển thị</label>
                             <div class="checkbox">
-                                <label><input type="checkbox" value="1" name="Visible"> Hiện lên web </label>
+                                <label>
+                                    @if (Model.Visible == 1)
+                                    {
+                                        <input type="checkbox" value="1" name="Visible" checked>
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox" value="1" name="Visible">
+                                    }
+                                    Hiện lên web
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -108,7 +137,9 @@
                     <div class="col-12 col-xs-12 col-md-12 col-lg-12">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Giới thiệu phần mềm</label>
-                            <div id="editor"></div>
+                            <div id="editor">
+                                @Html.Raw(Model.text)
+                            </div>
                             <input type="hidden" name="text" id="text" />
                         </div>
                     </div>
@@ -117,7 +148,7 @@
                     <div class="col-12 col-xs-12 col-md-8 col-lg-8 col-xl-8"></div>
                     <div class="col-12 col-xs-12 col-md-4 col-lg-4 col-xl-4">
                         <button type="button" class="col-md-5 btn btn-success mt-1" id="btnSave">Lưu</button>
-                        <button type="button" class="col-md-5 btn btn-default mt-1" onclick="javascript: GoBackWithRefresh() ">Huỷ bỏ</button>
+                        <button type="button" class="col-md-5 btn btn-default mt-1" onclick="javascript: GoBackWithRefresh() ">Back</button>
                     </div>
                 </div>
             </div>
@@ -171,19 +202,14 @@
         });
         $("#btnSave").click(function () {
             $('#text').val(editor.getData());
-            var formData = $('#AddNewSoftware_Proc_form').serialize();
+            var formData = $('#EditSoftware_Proc_form').serialize();
             $.ajax({
-                url: '@Url.Action("AddNewSoftware_Proc","Default")',
+                url: '@Url.Action("EditSoftware_Proc","Default")',
                 type: 'POST',
                 data: formData,
                 dataType: 'json',
                 success: function (response) {
-                    if (response.message === 'ok')
-                        vex.dialog.alert({ className: 'vex-theme-os example', message: response.message });
-                    else
-                        vex.dialog.alert({ className: 'vex-theme-os example', message: response.message });
-
-                    console.log(response);
+                    vex.dialog.alert({ className: 'vex-theme-os example', message: response.message });
                 }
             });
         });
@@ -235,26 +261,18 @@
                 }
             }).done(function (ketqua) {
                 if (ketqua.message === 'ok') {
-                    
                     console.log('path: ' + ketqua.fullpath);
                     $('#icon').attr('src', ketqua.fullpath);
                     $('#myModal').modal("toggle");
                     overlay_off();
                 }
-                
+
 
             });
           } catch (err) {
             console.error('Failed to copy!', err)
           }
         })
-        $('#related_downloadID').on("input",function () {
-            if ($('#related_downloadID').text() == "") {
-                console.log(document.getElementsByName("related_downloadID")[0].value);
-                document.getElementsByName("related_downloadID")[0].value = null;
-                console.log(document.getElementsByName("related_downloadID")[0].value);
-            }
-        });
         $('#related_downloadID').autocomplete({
             serviceUrl: '@Url.Action("autocomplete","default")',
             onSelect: function (suggestion) {
@@ -263,8 +281,8 @@
                 console.log('You selected: ' + suggestion.value + ', ' + suggestion.data);
             }
         });
-
-        ClassicEditor
+        $( document ).ready(function() {
+            ClassicEditor
             .create(document.querySelector('#editor'), {
                 // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
             })
@@ -275,5 +293,7 @@
             .catch(err => {
                 console.error(err.stack);
             });
+        });
+        
     </script>
 }

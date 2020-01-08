@@ -24,12 +24,10 @@ namespace webdownload.Models
         public string text { get; set; }
         public string main_download { get; set; }
 
-        public string friendly_url { get; set; }
-
-        public TblSoftware related_download { get; set; }
+        public int? related_downloadID { get; set; }
         public string tags { get; set; }
 
-        public TblCategory category { get; set; }
+        public int categoryID { get; set; }
 
         public int Visible { get; set; }
     }

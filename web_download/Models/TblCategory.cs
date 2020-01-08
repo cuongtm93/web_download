@@ -17,7 +17,7 @@ namespace webdownload.Models
 
         public string icon { get; set; }
 
-        public TblCategory Parent { get; set; }
+        public int? ParentID { get; set; }
 
         public string text { get; set; }
     }

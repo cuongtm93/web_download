@@ -8,7 +8,7 @@ namespace webdownload.Areas.Admin.Models
 {
     public class subcategorylist_viewmodel
     {
-        public TblCategory Category { get; set; }
+        public int? CategoryID { get; set; }
 
         public List<TblSoftware> softwares { get; set; }
 
