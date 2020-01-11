@@ -19,6 +19,7 @@ namespace webdownload
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseUrls("https://0.0.0.0:5001/")
                 .UseStartup<Startup>();
     }
 }

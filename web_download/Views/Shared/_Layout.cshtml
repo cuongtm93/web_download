@@ -12,7 +12,7 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/assets/vendor/bootstrap/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.min.css" />
-        <link rel="stylesheet" href="~/assets/vendor/fontawesome/css/all.css" />
+        <link rel="stylesheet" href="~/assets/vendor/fonts/fontawesome/css/all.css">
         <link rel="stylesheet" href="~/assets/vendor/mega-dropdown-master/css/style.css" />
 
     </environment>
@@ -21,7 +21,7 @@
         <link rel="stylesheet" href="~/assets/vendor/bootstrap/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-        <link rel="stylesheet" href="~/assets/vendor/fonts/fontawesome/css/fontawesome-all.css" />
+        <link rel="stylesheet" href="~/assets/vendor/fonts/fontawesome/css/all.css">
     </environment>
 </head>
 <body>
@@ -29,6 +29,16 @@
     
     <div class="container">
         @await Html.PartialAsync("menu")
+        <div style="margin :  0px 0px;">
+            @using (Html.BeginForm("search2", "home", FormMethod.Post, new { @class = "form-inline mt-3" }))
+            {
+                <input id="Name" name="name" type="text" placeholder="Nhập từ khoá tìm kiếm" class="form-control col-12 col-lg-7 mr-1 mt-1" autocomplete="off" />
+                <button type="button" class="col-12 col-lg-2 btn btn-default mt-1 float-right" onclick="this.form.submit()">
+                    <i class="fas fa-search"></i> Tìm kiếm
+                </button>
+            }
+        </div>
+        
         @RenderBody()
 
     </div>

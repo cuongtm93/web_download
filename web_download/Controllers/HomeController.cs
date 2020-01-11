@@ -28,7 +28,18 @@ namespace webdownload.Controllers
         [HttpPost]
         public IActionResult Search2(string name)
         {
-            var model = db.TblSoftware.Where(r => r.Name.ToLower().Contains(name.ToLower())).Take(8);
+            List<TblSoftware> model;
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                ViewBag.Count = 0;
+                ViewBag.Total = db.TblSoftware.Count();
+                model = new List<TblSoftware>();
+                return View(model);
+            }
+            model = db.TblSoftware.Where(r => r.Name.ToLower().Contains(name.ToLower())).Take(8).ToList();
+            if (model.Count() == 0) model = new List<TblSoftware>();
+            ViewBag.Count = model.Count;
+            ViewBag.Total = db.TblSoftware.Count();
             return View(model);
         }
 
