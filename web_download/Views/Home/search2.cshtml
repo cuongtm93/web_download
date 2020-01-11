@@ -1,0 +1,46 @@
+﻿@model IEnumerable<TblSoftware>
+@{
+    ViewData["Title"] = "search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+    <div class="row">
+        <div class="col-12 mt-3">
+            <div class="alert alert-success" role="alert">Tìm thấy 0 trong tổng số 360 phần mềm </div>
+        </div>
+    </div>
+<div class="row">
+    @foreach (var item in Model)
+    {
+    <div class="col-12 col-sm-12 col-md-6 col-lg-3">
+        <div class="card mt-3">
+            <div class="card-body">
+                <a href="@Url.Action("details","home", new { url = item.short_url })">
+                    <img src="@item.icon" style="width : 100%; height: auto" />
+                    <h5 class="card-title">@item.Name</h5>
+                </a>
+            </div>
+        </div>
+    </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-3">
+            <div class="card mt-3">
+                <div class="card-body">
+                    <a href="@Url.Action("details","home", new { url = item.short_url })">
+                        <img src="@item.icon" style="width : 100%; height: auto" />
+                        <h5 class="card-title">@item.Name</h5>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-3">
+            <div class="card mt-3">
+                <div class="card-body">
+                    <a href="@Url.Action("details","home", new { url = item.short_url })">
+                        <img src="@item.icon" style="width : 100%; height: auto" />
+                        <h5 class="card-title">@item.Name</h5>
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
