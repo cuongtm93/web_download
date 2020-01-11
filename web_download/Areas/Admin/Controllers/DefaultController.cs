@@ -28,37 +28,44 @@ namespace webdownload.Areas.Admin.Controllers
 
         public IActionResult sub_category_show_list(string friendly_url, int? page)
         {
-            const int per_page = 3;
-            var cateogry = db.TblCategory.First(r => r.url == friendly_url);
-            ViewBag.Category = cateogry;
-            var last_page = 0;
-            if ((db.TblSoftware.Count() % per_page) > 0)
+            try
             {
-                last_page = db.TblSoftware.Count() / per_page + 1;
+                const int per_page = 3;
+                var cateogry = db.TblCategory.First(r => r.url == friendly_url);
+                ViewBag.Category = cateogry;
+                var last_page = 0;
+                if ((db.TblSoftware.Count() % per_page) > 0)
+                {
+                    last_page = db.TblSoftware.Count() / per_page + 1;
+                }
+                else
+                {
+                    last_page = db.TblSoftware.Count() / per_page;
+                }
+
+                if (page.HasValue == false) page = 1;
+                var softwares = new List<TblSoftware>();
+                if (page > 0)
+                {
+                    softwares = db.TblSoftware.Where(r => r.categoryID == cateogry.ID).Skip((page.Value - 1) * per_page).Take(per_page).ToList();
+                }
+                var parent = db.TblCategory.Single(r => r.ID == cateogry.ParentID);
+                ViewBag.Parent = parent;
+                cateogry.ParentID = parent.ID;
+                var model = new subcategorylist_viewmodel()
+                {
+                    CategoryID = cateogry.ID,
+                    page = page.Value,
+                    page_count = last_page,
+                    softwares = softwares.ToList()
+                };
+                return View(model);
             }
-            else
+            catch (Exception e)
             {
-                last_page = db.TblSoftware.Count() / per_page ;
-            }
-            
-            if (page.HasValue == false) page = 1;
-            var softwares = new List<TblSoftware>();
-            if (page > 0)
-            {
-                softwares = db.TblSoftware.Where(r => r.categoryID == cateogry.ID).Skip((page.Value - 1) * per_page).Take(per_page).ToList();
+                return Content(e.Message);
             }
 
-            var parent = db.TblCategory.Single(r => r.ID == cateogry.ParentID);
-            ViewBag.Parent = parent;
-            cateogry.ParentID = parent.ID;
-            var model = new subcategorylist_viewmodel()
-            {
-                CategoryID = cateogry.ID,
-                page = page.Value,
-                page_count = last_page,
-                softwares = softwares.ToList()
-            };
-            return View(model);
         }
 
         [HttpPost]
@@ -75,7 +82,7 @@ namespace webdownload.Areas.Admin.Controllers
                 }
                 return Json(new
                 {
-                    message = "ok" 
+                    message = "ok"
                 });
             }
             catch (Exception e)
@@ -85,7 +92,7 @@ namespace webdownload.Areas.Admin.Controllers
                     message = e.InnerException.Message
                 });
             }
-            
+
         }
 
         [HttpPost]
@@ -95,6 +102,7 @@ namespace webdownload.Areas.Admin.Controllers
             try
             {
                 int? related_downloadID = null;
+                model.DateAdd = DateTime.Now;
                 var category_id = int.Parse(Request.Form["categoryID"][0]);
                 if (string.IsNullOrWhiteSpace(model.Name))
                 {
@@ -103,6 +111,7 @@ namespace webdownload.Areas.Admin.Controllers
                         message = "Vui lòng điền tên",
                     });
                 }
+                model.short_url = FriendlyUrlHelper.GetFriendlyTitle(model.Name);
                 model.categoryID = category_id;
                 if (Request.Form["related_downloadID"].Count > 0 && !String.IsNullOrWhiteSpace(Request.Form["related_downloadID"][0]))
                 {
@@ -123,9 +132,9 @@ namespace webdownload.Areas.Admin.Controllers
                 {
                     message = e.Message
                 });
-            } 
-            
-            
+            }
+
+
         }
         public IActionResult AddNewSoftware(string CategoryId)
         {
@@ -177,7 +186,7 @@ namespace webdownload.Areas.Admin.Controllers
                 });
                 throw;
             }
-            
+
         }
         [HttpGet]
         public JsonResult Autocomplete(string query)

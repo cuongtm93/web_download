@@ -10,28 +10,33 @@ namespace webdownload.Controllers
 {
     public class HomeController : Controller
     {
+        private WebDownloadDbContext db = new WebDownloadDbContext();
         public IActionResult Index()
         {
-            return View();
+            var model = new HomeIndexViewmodel();
+            model.News_Softwares = db.TblSoftware.OrderByDescending(r => r.DateAdd).Take(8).ToList();
+            return View(model);
         }
 
-        public IActionResult About()
+        [Route("phan-mem/{url}")]
+        public IActionResult Details(string url)
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
+            var download = db.TblSoftware.Single(r => r.short_url == url);
+            return View(download);
         }
 
-        public IActionResult Contact()
+        [HttpPost]
+        public IActionResult Search2(string name)
         {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
+            var model = db.TblSoftware.Where(r => r.Name.ToLower().Contains(name.ToLower())).Take(8);
+            return View(model);
         }
 
-        public IActionResult Privacy()
+        [Route("Download/{url}")]
+        public IActionResult Download(string url)
         {
-            return View();
+            var download = db.TblSoftware.Single(r => r.short_url == url);
+            return View(download);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
