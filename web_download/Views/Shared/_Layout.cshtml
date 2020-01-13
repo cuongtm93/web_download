@@ -92,6 +92,7 @@
             });
  
             function doStuff() {
+                $('#Name_autocomplete').show();
                 if (window.innerWidth >= 1024) {
                     $.ajax({
                         type: "POST",
@@ -106,11 +107,7 @@
                     $('#Name_autocomplete').hide();
                 }
             }
-
-            $('#Name').focusin(function (event) {
-                $('#Name_autocomplete').show();
-            });
-
+           
             $('#Name_autocomplete').on("focusout",function () {
                  $('#Name_autocomplete').hide();
             });
