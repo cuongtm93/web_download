@@ -15,6 +15,7 @@ namespace webdownload.Controllers
         {
             var model = new HomeIndexViewmodel();
             model.News_Softwares = db.TblSoftware.OrderByDescending(r => r.DateAdd).Take(8).ToList();
+            model.Top_Softwares = db.TblSoftware.OrderByDescending(r => r.downloaded).Take(8).ToList();
             return View(model);
         }
 

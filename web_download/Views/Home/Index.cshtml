@@ -41,18 +41,18 @@
                                 </td>
                                 <td>
                                     @*<div class="rating">
-                                        @{
-                                            int rate = Convert.ToInt32(software.rating);
-                                        }
-                                        @for (int i = 1; i <= rate; i++)
-                                        {
-                                            <span>☆</span>
-                                        }
-                                        @for (int i = 5; i > rate; i--)
-                                        {
-                                            <span>☆</span>
-                                        }
-                                    </div>*@
+                                            @{
+                                                int rate = Convert.ToInt32(software.rating);
+                                            }
+                                            @for (int i = 1; i <= rate; i++)
+                                            {
+                                                <span>☆</span>
+                                            }
+                                            @for (int i = 5; i > rate; i--)
+                                            {
+                                                <span>☆</span>
+                                            }
+                                        </div>*@
                                 </td>
                             </tr>
                         }
@@ -67,9 +67,17 @@
                 Bảng xếp hạng
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">Cras justo odio</li>
-                <li class="list-group-item">Dapibus ac facilisis in</li>
-                <li class="list-group-item">Vestibulum at eros</li>
+                @foreach (var item in Model.Top_Softwares)
+                {
+                    <a href="@Url.Action("details","home" , new { url = item.short_url })" style="text-decoration : none">
+                        <li class="list-group-item">
+
+                            <img src="@item.icon" style="width : 2em ; height : 2em; display : inline" />
+                            <span style="display :inline">@item.Name</span>
+                        </li>
+                    </a>
+                }
+
             </ul>
         </div>
 
@@ -79,7 +87,7 @@
 
 @section scripts{
     <script>
-        $('#Name').change(function(event){
+        $('#Name').change(function (event) {
             console.log($('#Name').val());
         });
     </script>
