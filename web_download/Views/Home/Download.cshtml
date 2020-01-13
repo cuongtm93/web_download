@@ -5,5 +5,44 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@Model.Name
+<h1 class="alert alert-success mt-3">
+    Tải xuống phần mềm @Model.Name
+</h1>
+
+<hr />
+
+<p>Dung lượng : @Model.size KB</p>
+
+<p><b>Danh sách link tải</b></p>
+<hr />
+
+@if (!string.IsNullOrWhiteSpace(Model.main_download))
+{
+    var item = Model.main_download.Split("\n");
+
+    for (int i = 0; i < item.Length; i++)
+    {
+        if (!string.IsNullOrWhiteSpace(item[i]))
+        {
+            <div class="row mt-3">
+                <div class="col-12 col-md-9">
+                    <span>@item[i]</span>
+                </div>
+                <a href="@item[i]" target="_blank">
+                    <div class="col-12 col-md-3">
+                        <button type="button" class="btn btn-success">
+                            <i class="fa fa-download"></i> @(i + 1) -  Tải xuống
+                        </button>
+                    </div>
+                </a>
+            </div>
+        }
+    }
+
+}
+else
+{
+    <p class="alert alert-warning">Chưa có link download</p>
+}
+
 

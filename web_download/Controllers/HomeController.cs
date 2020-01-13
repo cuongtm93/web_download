@@ -23,6 +23,8 @@ namespace webdownload.Controllers
         public IActionResult Details(string url)
         {
             var download = db.TblSoftware.Single(r => r.short_url == url);
+            download.viewed += 1;
+            db.SaveChanges();
             return View(download);
         }
 
@@ -65,6 +67,8 @@ namespace webdownload.Controllers
         public IActionResult Download(string url)
         {
             var download = db.TblSoftware.Single(r => r.short_url == url);
+            download.downloaded += 1;
+            db.SaveChanges();
             return View(download);
         }
 
