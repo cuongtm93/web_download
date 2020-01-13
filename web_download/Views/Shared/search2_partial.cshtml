@@ -1,0 +1,24 @@
+﻿@model List<TblSoftware>
+@{
+    Layout = null;
+
+}
+
+@if (Model is null)
+{
+    return;
+}
+<div class="row mb-3">
+    <div class="col-12">
+        <ul class="list-group">
+            @foreach (var item in Model)
+            {
+                <a href="@Url.Action("Details","Home", new { url = item.short_url })" style="text-decoration : none">
+                    <li class="list-group-item">
+                        @item.Name
+                    </li>
+                </a>
+            }
+        </ul>
+    </div>
+</div>

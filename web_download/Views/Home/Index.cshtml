@@ -11,13 +11,12 @@
                 Phần mềm mới nhất
             </div>
             <div class="card-body">
-                <table class="table  table-hover table-responsive">
+                <table class="table">
                     <thead>
                         <tr>
                             <th scope="col" style="width : 10% ">Icon</th>
                             <th scope="col" style="width : 35% ">Tên</th>
                             <th scope="col" style="width : 25% ">Hệ điều hành</th>
-                            <th scope="col" style="width : 45% ">Rating</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,7 +40,7 @@
                                     @software.operating_systems
                                 </td>
                                 <td>
-                                    <div class="rating">
+                                    @*<div class="rating">
                                         @{
                                             int rate = Convert.ToInt32(software.rating);
                                         }
@@ -53,7 +52,7 @@
                                         {
                                             <span>☆</span>
                                         }
-                                    </div>
+                                    </div>*@
                                 </td>
                             </tr>
                         }
@@ -77,3 +76,11 @@
 
     </div>
 </div>
+
+@section scripts{
+    <script>
+        $('#Name').change(function(event){
+            console.log($('#Name').val());
+        });
+    </script>
+}

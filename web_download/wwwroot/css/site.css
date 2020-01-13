@@ -53,3 +53,21 @@ body {
   position: absolute;
   left: 0;
   color: gold !important; }
+
+.Name_autocomplete {
+  display: block;
+  visibility: visible;
+  position: absolute;
+  top: 0.5em;
+  z-index: 999;
+  background-color: white; }
+
+.Name_autocomplete_show {
+  display: block !important; }
+
+span {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
+  display: block;
+  overflow: hidden; }

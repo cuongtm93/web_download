@@ -43,6 +43,23 @@ namespace webdownload.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public IActionResult Search2_autocomplete(string name)
+        {
+            List<TblSoftware> model;
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                ViewBag.Count = 0;
+                ViewBag.Total = db.TblSoftware.Count();
+                model = new List<TblSoftware>();
+                return View("search2_partial",model);
+            }
+            model = db.TblSoftware.Where(r => r.Name.ToLower().Contains(name.ToLower())).Take(8).ToList();
+            if (model.Count() == 0) model = new List<TblSoftware>();
+            ViewBag.Count = model.Count;
+            ViewBag.Total = db.TblSoftware.Count();
+            return View("search2_partial", model);
+        }
         [Route("Download/{url}")]
         public IActionResult Download(string url)
         {

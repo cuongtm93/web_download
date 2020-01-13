@@ -32,17 +32,24 @@
 
         @using (Html.BeginForm("search2", "home", FormMethod.Post, new { @class = "mt-3" }))
         {
-            <div class="row">
+            <div class="row" style="position : relative">
                 <div class="col-12 col-lg-10 pt-3">
                     <input id="Name" name="name" type="text" placeholder="Nhập từ khoá tìm kiếm" class="form-control" autocomplete="off" />
                 </div>
+                <input type="text" value="áddsf" style="display : none" />
                 <div class="col-12 col-lg-2 pt-3">
                     <button type="button" class="btn btn-default" onclick="this.form.submit()" style="width : 100%">
                         <i class="fas fa-search"></i> Tìm kiếm
                     </button>
                 </div>
             </div>
+
         }
+        <div class="row" style="position : relative">
+            <div class="Name_autocomplete col-12 col-lg-10" id="Name_autocomplete">
+
+            </div>
+        </div>
         @RenderBody()
 
     </div>
@@ -74,6 +81,42 @@
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
 
+    <script>
+        $(document).ready(function () {
+            $('#Name_autocomplete').hide();
+
+            var timer = null;
+            $('#Name').keydown(function () {
+                clearTimeout(timer);
+                timer = setTimeout(doStuff, 200)
+            });
+ 
+            function doStuff() {
+                if (window.innerWidth >= 1024) {
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("Search2_autocomplete","home")",
+                        data: { name: $('#Name').val() },
+                        success: function (data) {
+                            console.log(data);
+                            $('#Name_autocomplete').html(data);
+                        }
+                    });
+                } else {
+                    $('#Name_autocomplete').hide();
+                }
+            }
+
+            $('#Name').focusin(function (event) {
+                $('#Name_autocomplete').show();
+            });
+
+            $('#Name_autocomplete').on("focusout",function () {
+                 $('#Name_autocomplete').hide();
+            });
+        });
+
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

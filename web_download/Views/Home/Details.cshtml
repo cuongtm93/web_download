@@ -15,4 +15,23 @@
     @Html.Raw(Model.text)
 </div>
 
+@if (!string.IsNullOrWhiteSpace(Model.main_download))
+{
+    <div class="row">
+        @foreach (var item in Model.main_download.Split("\n"))
+        {
+            <div class="col-12 col-md-9">
+                <span>@item</span>
+            </div>
+            <div class="col-12 col-md-3">
+                <button type="button" class="btn btn-success">Tải xuống</button>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p class="alert alert-warning">Chưa có link download</p>
+}
+
 
