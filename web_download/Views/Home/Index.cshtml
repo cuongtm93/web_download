@@ -14,9 +14,8 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col" style="width : 10% ">Icon</th>
-                            <th scope="col" style="width : 35% ">Tên</th>
-                            <th scope="col" style="width : 25% ">Hệ điều hành</th>
+                            <th scope="col" style="width : 65% ">Phần mềm</th>
+                            <th scope="col" style="width : 35% " class="hidden-sm">Hệ điều hành</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -26,17 +25,12 @@
                             //@Url.Action("Download","Home", new { url = software.short_url })
                             <tr>
                                 <th scope="row">
-                                    <a href="@Url.Action("Details", "Home", new { url = software.short_url })">
+                                    <a href="@Url.Action("Details", "Home", new { url = software.short_url })" style="text-decoration : none">
                                         <img src="@Url.Content(software.icon)" style="width : 3em; height: 3em" />
+                                        <span style="display:inline">@software.Name</span>
                                     </a>
                                 </th>
-                                <td>
-                                    <a href="@Url.Action("Details", "Home", new { url = software.short_url })">
-                                        @software.Name
-                                    </a>
-
-                                </td>
-                                <td>
+                                <td class="hidden-sm">
                                     @software.operating_systems
                                 </td>
                                 <td>
