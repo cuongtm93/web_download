@@ -15,7 +15,7 @@ namespace webdownload.Models
         public DateTime DateAdd { get; set; }
         public string Name { get; set; }
         public string icon { get; set; }
-        public int rating { get; set; }
+        public float rating { get; set; }
         public string provider { get; set; }
         public string version { get; set; }
         public int lience { get; set; }

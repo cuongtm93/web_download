@@ -26,24 +26,28 @@
 </head>
 <body>
 
-    
+
     <div class="container">
         @await Html.PartialAsync("menu")
-        <div style="margin :  0px 0px;">
-            @using (Html.BeginForm("search2", "home", FormMethod.Post, new { @class = "form-inline mt-3" }))
-            {
-                <input id="Name" name="name" type="text" placeholder="Nhập từ khoá tìm kiếm" class="form-control col-12 col-lg-7 mr-1 mt-1" autocomplete="off" />
-                <button type="button" class="col-12 col-lg-2 btn btn-default mt-1 float-right" onclick="this.form.submit()">
-                    <i class="fas fa-search"></i> Tìm kiếm
-                </button>
-            }
-        </div>
-        
+
+        @using (Html.BeginForm("search2", "home", FormMethod.Post, new { @class = "mt-3" }))
+        {
+            <div class="row">
+                <div class="col-12 col-lg-10 pt-3">
+                    <input id="Name" name="name" type="text" placeholder="Nhập từ khoá tìm kiếm" class="form-control" autocomplete="off" />
+                </div>
+                <div class="col-12 col-lg-2 pt-3">
+                    <button type="button" class="btn btn-default" onclick="this.form.submit()" style="width : 100%">
+                        <i class="fas fa-search"></i> Tìm kiếm
+                    </button>
+                </div>
+            </div>
+        }
         @RenderBody()
 
     </div>
     <footer>
-        <div class="container">
+        <div class="container mt-3">
             <p style="text-align : center"> &copy; Trần Mạnh Cường  - 2019</p>
         </div>
     </footer>

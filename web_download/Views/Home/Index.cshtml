@@ -5,48 +5,62 @@
 }
 
 <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 mt-3" >
-        <div class="card" style="width: 100%;">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 mt-3">
+        <div class="card">
             <div class="card-header">
                 Phần mềm mới nhất
             </div>
-            <table class="table table-responsive" style="width: 100%;">
-                <thead>
-                    <tr>
-                        <th scope="col" style="width : 20% ">Icon</th>
-                        <th scope="col" style="width : 40% " >Tên</th>
-                        <th scope="col" style="width : 25% " >Hệ điều hành</th>
-                        <th scope="col" style="width : 25% " >Lượt tải</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var software in Model.News_Softwares)
-                    {
-                        //@Url.Action("Details","Home",new { url = software.short_url })
-                        //@Url.Action("Download","Home", new { url = software.short_url })
+            <div class="card-body">
+                <table class="table  table-hover table-responsive">
+                    <thead>
                         <tr>
-                            <th scope="row">
-                                <a href="@Url.Action("Details","Home",new { url = software.short_url })">
-                                    <img src="@Url.Content(software.icon)" style="width : 3em; height: 3em" />
-                                </a>
-                            </th>
-                            <td>
-                                <a href="@Url.Action("Details","Home",new { url = software.short_url })">
-                                    @software.Name
-                                </a>
-                                
-                            </td>
-                            <td>
-                                @software.operating_systems
-                            </td>
-                            <td>@software.downloaded</td>
+                            <th scope="col" style="width : 10% ">Icon</th>
+                            <th scope="col" style="width : 35% ">Tên</th>
+                            <th scope="col" style="width : 25% ">Hệ điều hành</th>
+                            <th scope="col" style="width : 45% ">Rating</th>
                         </tr>
-                    }
-                </tbody>
+                    </thead>
+                    <tbody>
+                        @foreach (var software in Model.News_Softwares)
+                        {
+                            //@Url.Action("Details","Home",new { url = software.short_url })
+                            //@Url.Action("Download","Home", new { url = software.short_url })
+                            <tr>
+                                <th scope="row">
+                                    <a href="@Url.Action("Details", "Home", new { url = software.short_url })">
+                                        <img src="@Url.Content(software.icon)" style="width : 3em; height: 3em" />
+                                    </a>
+                                </th>
+                                <td>
+                                    <a href="@Url.Action("Details", "Home", new { url = software.short_url })">
+                                        @software.Name
+                                    </a>
 
-            </table>
+                                </td>
+                                <td>
+                                    @software.operating_systems
+                                </td>
+                                <td>
+                                    <div class="rating">
+                                        @{
+                                            int rate = Convert.ToInt32(software.rating);
+                                        }
+                                        @for (int i = 1; i <= rate; i++)
+                                        {
+                                            <span>☆</span>
+                                        }
+                                        @for (int i = 5; i > rate; i--)
+                                        {
+                                            <span>☆</span>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
-
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 mt-3">
         <div class="card" style="width: 100%;">
