@@ -11,10 +11,19 @@ namespace webdownload.Models
     {
         [Key]
         public int ID { get; set; }
+
+        [Required]
         public string short_url { get; set; }
+
+        [Required]
         public DateTime DateAdd { get; set; }
+
+        [Required]
         public string Name { get; set; }
+
+        [Required]
         public string icon { get; set; }
+
         public float rating { get; set; }
         public string provider { get; set; }
         public string version { get; set; }
@@ -29,6 +38,7 @@ namespace webdownload.Models
         public int? related_downloadID { get; set; }
         public string tags { get; set; }
 
+        [Required]
         public int categoryID { get; set; }
 
         public int Visible { get; set; }

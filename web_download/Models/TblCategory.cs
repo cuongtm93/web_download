@@ -11,8 +11,13 @@ namespace webdownload.Models
         [Key]
         public int ID { get; set; }
 
+        [Required]
         public string name { get; set; }
+
+        [Required]
         public string url { get; set; }
+
+        [Required]
         public int order { get; set; }
 
         public string icon { get; set; }
