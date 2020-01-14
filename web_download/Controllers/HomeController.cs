@@ -19,6 +19,21 @@ namespace webdownload.Controllers
             return View(model);
         }
 
+        public IActionResult category_details(string url)
+        {
+            var category = db.TblCategory.Single(r => r.url == url);
+            var softwares = db.TblSoftware.Where(r => r.categoryID == category.ID)
+                .OrderByDescending(r => r.downloaded)
+                .ThenByDescending(r => r.viewed)
+                .Take(10).ToList();
+            var model = new HomeCategoryDetailsViewmodel()
+            {
+                Category = category,
+                Softwares = softwares
+            };
+
+            return View(model);
+        }
         [Route("phan-mem/{url}")]
         public IActionResult Details(string url)
         {
