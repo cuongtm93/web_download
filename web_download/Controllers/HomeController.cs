@@ -23,7 +23,7 @@ namespace webdownload.Controllers
         [Route("chuyen-muc/{url}/{page}")]
         public IActionResult category_details(string url, int page)
         {
-            const int perpage = 1;
+            const int perpage = 8;
             var category = db.TblCategory.Single(r => r.url == url);
 
             var softwares = db.TblSoftware.Where(r => r.categoryID == category.ID)
@@ -33,7 +33,7 @@ namespace webdownload.Controllers
                 .Take(perpage).ToList();
             var model = new HomeCategoryDetailsViewmodel()
             {
-                total_page = db.TblSoftware.Count(),
+                total_page = (int)Math.Ceiling((double)db.TblSoftware.Count() / (double)perpage),
                 page_index = page,
                 Category = category,
                 Softwares = softwares
