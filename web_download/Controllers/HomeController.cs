@@ -31,13 +31,15 @@ namespace webdownload.Controllers
                 .ThenByDescending(r => r.viewed)
                 .Skip((page - 1) * perpage)
                 .Take(perpage).ToList();
+
             var model = new HomeCategoryDetailsViewmodel()
             {
                 total_page = (int)Math.Ceiling((double)db.TblSoftware.Count() / (double)perpage),
                 page_index = page,
                 Category = category,
-                Softwares = softwares
+                Softwares = softwares,
             };
+            model.Top_Softwares = db.TblSoftware.OrderByDescending(r => r.downloaded).Take(8).ToList();
             return View(model);
         }
         [Route("phan-mem/{url}")]
