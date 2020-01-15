@@ -10,57 +10,84 @@
 <hr />
 
 <div class="row">
-    @if (Model.Softwares is null || Model.Softwares.Count == 0)
-    {
-        <div class="alert alert-warning">Hiện chưa có phần mềm nào trong mục này</div>
-    }
-    else
-    {
-        foreach (var item in Model.Softwares)
-        {
-            <div class="col-12 col-md-3">
-                <a href="@Url.Action("details","home", new { url = item.short_url })" style="text-decoration: none">
-                    <img src="@item.icon" style="width : 200px; height: 200px;margin : auto;" class="category-details-item" />
-                    <span class="mt-1" style="color :#ce4be2">@item.Name </span>
-                    <span style="color : #2465bf">Hỗ trợ : @item.operating_systems  </span>
-                </a>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 mt-3">
+        <div class="row">
+            @if (Model.Softwares is null || Model.Softwares.Count == 0)
+            {
+                <div class="alert alert-warning">Hiện chưa có phần mềm nào trong mục này</div>
+            }
+            else
+            {
+                foreach (var item in Model.Softwares)
+                {
+                    <div class="col-12 col-md-3 category-details-item mt-3">
+                        <a href="@Url.Action("details","home", new { url = item.short_url })" style="text-decoration: none">
+                            <img src="@item.icon" style=" display : block ;width : 10em; height: 10em; margin : 0 auto;" />
+                            <span class="mt-1" style="color :#ce4be2">@item.Name </span>
+                            <span style="color : #2465bf">Hỗ trợ : @item.operating_systems  </span>
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+        <div class="row mt-3">
+            @if (Model.total_page > 1)
+            {
+                <nav aria-label="Page navigation" style="margin : 0 auto;">
+                    <ul class="pagination">
+                        @if (Model.page_index > 1)
+                        {
+                            <li class="page-item"><a class="page-link" href="@Url.Action("category_details","home",new { url  = Model.Category.url, page = Model.page_index -1 })">&lt;&lt;</a></li>
+                        }
+                        @{ var count = 0;}
+                        @for (int i = Model.page_index; i <= Model.page_index + 10; i++)
+                        {
+                            if (i > Model.total_page || count >= 10) { break; }
+
+                            @if (i == Model.page_index)
+                            {
+                                <li class="page-item active"><a class="page-link" href="@Url.Action("category_details","home",new { url  = Model.Category.url, page = i })">@i</a></li>
+                            }
+                            else
+                            {
+                                <li class="page-item"><a class="page-link" href="@Url.Action("category_details","home",new { url  = Model.Category.url, page = i })">@i</a></li>
+                            }
+
+                            count++;
+                        }
+                        @if (Model.page_index < Model.total_page)
+                        {
+                            <li class="page-item"><a class="page-link" href="@Url.Action("category_details","home",new { url  = Model.Category.url, page = Model.page_index + 1 })">>></a></li>
+                        }
+                    </ul>
+                </nav>
+            }
+
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 mt-3">
+        <div class="card" style="width: 100%;">
+            <div class="card-header">
+                Phổ biến nhất
             </div>
-        }
-    }
-</div>
-
-<div class="row mt-3">
-    @if (Model.total_page > 1)
-    {
-        <nav aria-label="Page navigation" style="margin : 0 auto;">
-            <ul class="pagination">
-                @if (Model.page_index > 1)
+            <ul class="list-group list-group-flush">
+                @foreach (var item in Model.Top_Softwares)
                 {
-                    <li class="page-item"><a class="page-link" href="@Url.Action("category_details","home",new { url  = Model.Category.url, page = Model.page_index -1 })">&lt;&lt;</a></li>
-                }
-                @{ var count = 0;}
-                @for (int i = Model.page_index; i <= Model.page_index + 10; i++)
-                {
-                    if (i > Model.total_page || count >= 10) { break; }
+                    <a href="@Url.Action("details","home" , new { url = item.short_url })" style="text-decoration : none">
+                        <li class="list-group-item">
 
-                    @if (i == Model.page_index)
-                    {
-                        <li class="page-item active"><a class="page-link" href="@Url.Action("category_details","home",new { url  = Model.Category.url, page = i })">@i</a></li>
-                    }
-                    else
-                    {
-                        <li class="page-item"><a class="page-link" href="@Url.Action("category_details","home",new { url  = Model.Category.url, page = i })">@i</a></li>
-                    }
+                            <img src="@item.icon" style="width : 2em ; height : 2em; display : inline" />
+                            <span style="display :inline">@item.Name</span>
+                        </li>
+                    </a>
+                }
 
-                    count++;
-                }
-                @if (Model.page_index < Model.total_page)
-                {
-                    <li class="page-item"><a class="page-link" href="@Url.Action("category_details","home",new { url  = Model.Category.url, page = Model.page_index + 1 })">>></a></li>
-                }
             </ul>
-        </nav>
-    }
+        </div>
 
+
+    </div>
 </div>
+
+
 

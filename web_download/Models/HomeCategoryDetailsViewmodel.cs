@@ -14,5 +14,7 @@ namespace webdownload.Models
         public int total_page { get; set; }
 
         public int page_index { get; set; }
+
+        public List<TblSoftware> Top_Softwares { get; set; }
     }
 }
