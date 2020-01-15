@@ -10,5 +10,9 @@ namespace webdownload.Models
         public TblCategory Category { get; set; }
 
         public List<TblSoftware> Softwares { get; set; }
+
+        public int total_page { get; set; }
+
+        public int page_index { get; set; }
     }
 }

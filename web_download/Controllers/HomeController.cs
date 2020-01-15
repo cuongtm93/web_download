@@ -19,19 +19,25 @@ namespace webdownload.Controllers
             return View(model);
         }
 
-        public IActionResult category_details(string url)
+
+        [Route("chuyen-muc/{url}/{page}")]
+        public IActionResult category_details(string url, int page)
         {
+            const int perpage = 1;
             var category = db.TblCategory.Single(r => r.url == url);
+
             var softwares = db.TblSoftware.Where(r => r.categoryID == category.ID)
                 .OrderByDescending(r => r.downloaded)
                 .ThenByDescending(r => r.viewed)
-                .Take(10).ToList();
+                .Skip((page - 1) * perpage)
+                .Take(perpage).ToList();
             var model = new HomeCategoryDetailsViewmodel()
             {
+                total_page = db.TblSoftware.Count(),
+                page_index = page,
                 Category = category,
                 Softwares = softwares
             };
-
             return View(model);
         }
         [Route("phan-mem/{url}")]
@@ -70,7 +76,7 @@ namespace webdownload.Controllers
                 ViewBag.Count = 0;
                 ViewBag.Total = db.TblSoftware.Count();
                 model = new List<TblSoftware>();
-                return View("search2_partial",model);
+                return View("search2_partial", model);
             }
             model = db.TblSoftware.Where(r => r.Name.ToLower().Contains(name.ToLower())).Take(8).ToList();
             if (model.Count() == 0) model = new List<TblSoftware>();
