@@ -24,7 +24,8 @@
   color: black; }
 
 body {
-  width: 1024px auto; }
+  width: 1024px auto;
+  background-color: #808080; }
 
 .card:hover {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
@@ -59,18 +60,24 @@ body {
   visibility: visible;
   position: absolute;
   top: 0.5em;
-  z-index: 999;
-  background-color: white; }
+  z-index: 999; }
 
 .Name_autocomplete_show {
   display: block !important; }
 
-span {
+.download-link {
   white-space: nowrap;
   text-overflow: ellipsis;
   width: 100%;
-  display: block;
-  overflow: hidden; }
+  overflow: hidden;
+  display: block; }
+
+a {
+  text-decoration: none;
+  color: black; }
+
+a:hover {
+  color: #95a321; }
 
 .category-details-item:hover {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); }

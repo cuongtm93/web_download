@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewData["Title"] = "category_dropdown";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model List<webdownload.Models.TblCategory>
+
+@foreach (var item in Model)
+{
+    <p>@item.name</p>
+}

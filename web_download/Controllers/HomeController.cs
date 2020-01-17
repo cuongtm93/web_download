@@ -42,6 +42,14 @@ namespace webdownload.Controllers
             model.Top_Softwares = db.TblSoftware.OrderByDescending(r => r.downloaded).Take(8).ToList();
             return View(model);
         }
+
+        public IActionResult category_dropdown(string url)
+        {
+            var category = db.TblCategory.Single(r => r.url == url);
+            var model = db.TblCategory.Where(r => r.ParentID == category.ID).ToList();
+            return View(model);
+        }
+
         [Route("phan-mem/{url}")]
         public IActionResult Details(string url)
         {
@@ -86,6 +94,7 @@ namespace webdownload.Controllers
             ViewBag.Total = db.TblSoftware.Count();
             return View("search2_partial", model);
         }
+
         [Route("Download/{url}")]
         public IActionResult Download(string url)
         {
