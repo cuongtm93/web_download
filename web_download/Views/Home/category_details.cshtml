@@ -73,19 +73,18 @@
             <div class="card-header">
                 Phổ biến nhất
             </div>
-            <ul class="list-group list-group-flush">
+            <div class="most-popular">
                 @foreach (var item in Model.Top_Softwares)
                 {
                     <a href="@Url.Action("details","home" , new { url = item.short_url })" style="text-decoration : none">
-                        <li class="list-group-item">
-
+                        <div class="most-popular-item">
                             <img src="@item.icon" style="width : 2em ; height : 2em; display : inline" />
                             <span style="display :inline">@item.Name</span>
-                        </li>
+                        </div>
                     </a>
                 }
 
-            </ul>
+            </div>
         </div>
 
 

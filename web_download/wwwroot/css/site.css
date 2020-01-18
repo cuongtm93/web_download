@@ -84,3 +84,19 @@ a:hover {
 
 .category-details-item {
   /*border: 1px solid #808080;*/ }
+
+.most-popular .most-popular-item {
+  padding: 1em; }
+  .most-popular .most-popular-item:hover {
+    background-color: rgba(0, 0, 0, 0.22); }
+
+.autocomplete {
+  background-color: #808080; }
+  .autocomplete .autocomplete-item {
+    padding: 1em;
+    position: relative; }
+    .autocomplete .autocomplete-item:hover {
+      background-color: #c4902e;
+      position: center;
+      color: white;
+      z-index: 999; }
