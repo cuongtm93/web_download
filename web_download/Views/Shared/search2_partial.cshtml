@@ -10,15 +10,15 @@
 }
 <div class="row mb-3">
     <div class="col-12">
-        <ul class="list-group">
+        <div class="autocomplete">
             @foreach (var item in Model)
             {
                 <a href="@Url.Action("Details","Home", new { url = item.short_url })" style="text-decoration : none">
-                    <li class="list-group-item">
+                    <div class="autocomplete-item">
                         @item.Name
-                    </li>
+                    </div>
                 </a>
             }
-        </ul>
+        </div>
     </div>
 </div>

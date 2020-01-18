@@ -79,8 +79,23 @@ a {
 a:hover {
   color: #95a321; }
 
-.category-details-item:hover {
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); }
-
 .category-details-item {
-  /*border: 1px solid #808080;*/ }
+  padding: 0.5em; }
+  .category-details-item:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.22), 0 6px 6px rgba(0, 0, 0, 0.22); }
+
+.most-popular .most-popular-item {
+  padding: 1em; }
+  .most-popular .most-popular-item:hover {
+    background-color: rgba(0, 0, 0, 0.22); }
+
+.autocomplete {
+  background-color: #808080; }
+  .autocomplete .autocomplete-item {
+    padding: 1em;
+    position: relative; }
+    .autocomplete .autocomplete-item:hover {
+      background-color: #c4902e;
+      position: center;
+      color: white;
+      z-index: 999; }

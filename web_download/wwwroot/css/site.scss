@@ -28,7 +28,7 @@
 
 body {
     width: 1024px auto;
-    background-color : #808080
+    background-color: #808080
 }
 
 .card:hover {
@@ -84,20 +84,49 @@ body {
     text-overflow: ellipsis;
     width: 100%;
     overflow: hidden;
-    display :block;
+    display: block;
 }
 
-a{
-    text-decoration : none;
-    color : black;
+a {
+    text-decoration: none;
+    color: black;
 }
+
 a:hover {
     color: #95a321;
 }
-.category-details-item:hover {
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-}
 
 .category-details-item {
-    /*border: 1px solid #808080;*/
+    padding : 0.5em;
+
+    &:hover {
+        box-shadow: 0 10px 20px rgba(0,0,0,0.22), 0 6px 6px rgba(0,0,0,0.22);
+    }
+}
+
+
+.most-popular {
+    .most-popular-item {
+        padding: 1em;
+        &:hover{
+            background-color : rgba(0,0,0,0.22);
+        }
+    }
+}
+
+
+.autocomplete {
+    background-color: #808080;
+
+    .autocomplete-item {
+        padding: 1em;
+        position: relative;
+
+        &:hover {
+            background-color: #c4902e;
+            position: center;
+            color : white;
+            z-index: 999;
+        }
+    }
 }
