@@ -1,7 +1,9 @@
 ﻿
+$base-color: #c4902e;
+
 /* change the background color */
 .navbar-custom {
-    background-color: #808080;
+    background-color: $base-color;
     border-radius: 5px;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
@@ -28,7 +30,7 @@
 
 body {
     width: 1024px auto;
-    background-color: #808080
+    background-color: $base-color;
 }
 
 .card:hover {
@@ -93,7 +95,7 @@ a {
 }
 
 a:hover {
-    color: #95a321;
+    color: green;
 }
 
 .category-details-item {
@@ -116,7 +118,7 @@ a:hover {
 
 
 .autocomplete {
-    background-color: #808080;
+    background-color: $base-color;
 
     .autocomplete-item {
         padding: 1em;
@@ -125,7 +127,7 @@ a:hover {
         &:hover {
             background-color: #c4902e;
             position: center;
-            color : white;
+            color: white;
             z-index: 999;
         }
     }

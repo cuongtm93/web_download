@@ -6,5 +6,9 @@
   {
     "outputFile": "wwwroot/assets/vendor/mega-dropdown-master/scss/style.css",
     "inputFile": "wwwroot/assets/vendor/mega-dropdown-master/scss/style.scss"
+  },
+  {
+    "outputFile": "wwwroot/assets/vendor/mega-dropdown-master/css/style.css",
+    "inputFile": "wwwroot/assets/vendor/mega-dropdown-master/css/style.scss"
   }
 ]
