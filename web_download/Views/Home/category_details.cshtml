@@ -25,9 +25,9 @@
                 <a href="@Url.Action("details","home", new { url = item.short_url })" style="text-decoration: none">
                     <div class="row mb-3 category-details-item">
                         <div class="col-3 col-md-4">
-                            <img src="@item.icon" style="width : 100%; height :auto;"/>
+                            <img src="@item.icon" style="width : 100%; height :auto;" />
                         </div>
-                        <div class="col" >
+                        <div class="col">
                             <p title="@item.Name"><b>@item.Name </b></p>
                             <p title="@item.operating_systems">Hệ điều hành : @item.operating_systems  </p>
                         </div>
@@ -37,7 +37,7 @@
             }
         }
 
-        <div class="mt-3" style="margin : 1em">
+        <div class="mt-3" style="margin : 9px !important; float:left">
             @if (Model.total_page > 1)
             {
                 <nav aria-label="Page navigation">
