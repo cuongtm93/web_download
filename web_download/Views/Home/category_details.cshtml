@@ -30,6 +30,7 @@
                         <div class="col">
                             <p title="@item.Name"><b>@item.Name </b></p>
                             <p title="@item.operating_systems">Hệ điều hành : @item.operating_systems  </p>
+                            <p title="@item.operating_systems" style="text-overflow:ellipsis">@Html.Raw(item.tags) </p>
                         </div>
 
                     </div>

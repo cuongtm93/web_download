@@ -100,6 +100,11 @@ a:hover {
   .category-details-item:hover {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.22), 0 6px 6px rgba(0, 0, 0, 0.22); }
 
+.windows .windows-item {
+  padding: 1em; }
+  .windows .windows-item:hover {
+    background-color: rgba(0, 0, 0, 0.22); }
+
 .most-popular .most-popular-item {
   padding: 1em; }
   .most-popular .most-popular-item:hover {

@@ -127,6 +127,16 @@ a:hover {
 }
 
 
+.windows {
+    .windows-item {
+        padding: 1em;
+
+        &:hover {
+            background-color: rgba(0,0,0,0.22);
+        }
+    }
+}
+
 .most-popular {
     .most-popular-item {
         padding: 1em;
@@ -224,7 +234,6 @@ a:hover {
         text-decoration: none;
     }
 }
-
 /*Menu mobile*/
 @media only screen and (max-width : 1024px) {
     .menu-desktop {
@@ -239,3 +248,4 @@ a:hover {
         background-color: $base-color;
     }
 }
+

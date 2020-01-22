@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -19,11 +20,10 @@ namespace webdownload.Controllers
             return View(model);
         }
 
-
         [Route("chuyen-muc/{url}/{page}")]
         public IActionResult category_details(string url, int page)
         {
-            const int perpage = 8;
+            const int perpage = 2;
             var category = db.TblCategory.Single(r => r.url == url);
 
             var softwares = db.TblSoftware.Where(r => r.categoryID == category.ID)
@@ -32,9 +32,20 @@ namespace webdownload.Controllers
                 .Skip((page - 1) * perpage)
                 .Take(perpage).ToList();
 
+            int CalcPagesCount()
+            {
+                var total_software = db.TblSoftware.Where(r => r.categoryID == category.ID).Count();
+                int totalPage = total_software / perpage;
+
+                // add the last page, ugly
+                if (total_software % perpage != 0) totalPage++;
+                return totalPage;
+            }
+
+
             var model = new HomeCategoryDetailsViewmodel()
             {
-                total_page = (int)Math.Ceiling((double)db.TblSoftware.Count() / (double)perpage),
+                total_page = (int)CalcPagesCount(),
                 page_index = page,
                 Category = category,
                 Softwares = softwares,
