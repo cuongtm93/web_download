@@ -23,13 +23,12 @@
 .navbar-custom .nav-item:hover .nav-link {
   color: black; }
 
-.footer {
-  position: fixed;
-  left: 8%;
-  bottom: 0%;
+footer {
+  position: relative;
   height: auto;
   width: 100%;
-  background: #41bff7; }
+  background: #a5def7;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); }
 
 /* IE 6 */
 * html .footer {
@@ -169,7 +168,5 @@ a:hover {
     display: none; }
   .menu-mobile {
     display: block; }
-  .footer {
-    display: none; }
   body {
     background-color: #64caf7; } }

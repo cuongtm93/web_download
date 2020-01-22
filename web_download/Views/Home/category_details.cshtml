@@ -2,13 +2,13 @@
 
 @model HomeCategoryDetailsViewmodel
 @{
-    ViewData["Title"] = "category_details";
+    ViewData["Title"] = Model.Category.name;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="row">
     <div class="col">
-        <h3 class="mt-3">Phần mềm @Model.Category.name</h3>
+        <h3 class="mt-3">@Model.Category.name</h3>
         <hr />
     </div>
 </div>

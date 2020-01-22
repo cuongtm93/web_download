@@ -1,6 +1,6 @@
 ﻿
 $base-color: #64caf7;
-$footer-color: #41bff7;
+$footer-color: #a5def7;
 /* change the background color */
 .navbar-custom {
     background-color: $base-color;
@@ -28,13 +28,12 @@ $footer-color: #41bff7;
     color: black;
 }
 
-.footer {
-    position: fixed;
-    left: 8%;
-    bottom: 0%;
+footer {
+    position: relative;
     height: auto;
     width: 100%;
     background: $footer-color;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 /* IE 6 */
@@ -235,9 +234,7 @@ a:hover {
     .menu-mobile {
         display: block;
     }
-    .footer{
-        display : none;
-    }
+
     body {
         background-color: $base-color;
     }
