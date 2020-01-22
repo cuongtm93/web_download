@@ -117,13 +117,32 @@ namespace webdownload.Areas.Admin.Controllers
                 {
                     related_downloadID = int.Parse(Request.Form["related_downloadID"][0]);
                     model.related_downloadID = related_downloadID.Value;
-
                 }
-                var _new = db.TblSoftware.Add(model);
+                var _new = db.TblSoftware.Add(new TblSoftware()
+                {
+                    icon = model.icon,
+                    categoryID = model.categoryID,
+                    Name = model.Name,
+                    lience = model.lience,
+                    main_download = model.main_download,
+                    operating_systems = model.operating_systems,
+                    provider = model.provider,
+                    rating = model.rating,
+                    related_downloadID = model.related_downloadID,
+                    short_url = FriendlyUrlHelper.GetFriendlyTitle(model.Name),
+                    Visible = model.Visible,
+                    viewed = 0,
+                    size = 0,
+                    downloaded = 0,
+                    DateAdd = DateTime.Now,
+                    text = model.text,
+                    tags = "",
+                    version = model.version
+                });
                 db.SaveChanges();
                 return Json(new
                 {
-                    message = "Tạo mới thành công!",
+                    message = "Tạo mới thành công! " + _new.Entity.ID,
                 });
             }
             catch (Exception e)
