@@ -1,6 +1,6 @@
 ﻿
 $base-color: #64caf7;
-
+$footer-color: #41bff7;
 /* change the background color */
 .navbar-custom {
     background-color: $base-color;
@@ -28,10 +28,31 @@ $base-color: #64caf7;
     color: black;
 }
 
+.footer {
+    position: fixed;
+    left: 8%;
+    bottom: 0%;
+    height: auto;
+    width: 100%;
+    background: $footer-color;
+}
+
+/* IE 6 */
+* html .footer {
+    position: absolute;
+    top: expression((0-(footer.offsetHeight)+(document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight)+(ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop))+'px');
+}
+
 body {
     width: 1024px auto;
+    min-height: 1000px;
     background-color: $base-color;
 }
+
+.flex-grow {
+    flex: 1;
+}
+
 
 .card:hover {
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
@@ -136,11 +157,13 @@ a:hover {
 
 .search_2_search_result_item {
     background-color: $base-color;
-    padding : 1em;
+    padding: 1em;
+
     a {
         text-decoration: none;
         color: white;
     }
+
     &:hover {
         background-color: #73d3fe;
     }
@@ -212,7 +235,9 @@ a:hover {
     .menu-mobile {
         display: block;
     }
-
+    .footer{
+        display : none;
+    }
     body {
         background-color: $base-color;
     }

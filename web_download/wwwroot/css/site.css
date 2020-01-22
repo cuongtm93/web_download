@@ -23,9 +23,26 @@
 .navbar-custom .nav-item:hover .nav-link {
   color: black; }
 
+.footer {
+  position: fixed;
+  left: 8%;
+  bottom: 0%;
+  height: auto;
+  width: 100%;
+  background: #41bff7; }
+
+/* IE 6 */
+* html .footer {
+  position: absolute;
+  top: expression((0-(footer.offsetHeight)+(document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight)+(ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop))+'px'); }
+
 body {
   width: 1024px auto;
+  min-height: 1000px;
   background-color: #64caf7; }
+
+.flex-grow {
+  flex: 1; }
 
 .card:hover {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
@@ -152,5 +169,7 @@ a:hover {
     display: none; }
   .menu-mobile {
     display: block; }
+  .footer {
+    display: none; }
   body {
     background-color: #64caf7; } }

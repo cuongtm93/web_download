@@ -29,7 +29,7 @@
 <body>
 
 
-    <div class="container">
+    <div class="container d-flex flex-column" style="min-height : 1000px;">
         @await Html.PartialAsync("menu")
 
         @using (Html.BeginForm("search2", "home", FormMethod.Post, new { @class = "mt-3" }))
@@ -53,13 +53,24 @@
             </div>
         </div>
         @RenderBody()
+        <!-- Footer -->
+        <footer class="container mt-4">
+            <div class="row">
+                <div class="col">
+                    <p>Website</p>
+                    <p>www.webdownload.com</p>
+                </div>
+                <div class="col">
+                    <p>Liên hệ</p>
+                    <p>email : developer.tranmanhcuong@gmail.com</p>
+                    <p>facebook : https://www.facebook.com/tmcuong93</p>
+                </div>
+            </div>
+        </footer>
+        <!-- Footer -->
 
     </div>
-    <footer>
-        <div class="container mt-3">
-            <p style="text-align : center"> &copy; Trần Mạnh Cường  - 2019</p>
-        </div>
-    </footer>
+
     <environment include="Development">
         <script src="~/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
         <script src="https://kit.fontawesome.com/f7304f49cf.js" crossorigin="anonymous"></script>
@@ -89,7 +100,7 @@
                 clearTimeout(timer);
                 timer = setTimeout(doStuff, 200)
             });
- 
+
             function doStuff() {
                 $('#Name_autocomplete').show();
                 if (window.innerWidth >= 1024) {
@@ -106,7 +117,7 @@
                     $('#Name_autocomplete').hide();
                 }
             }
-           
+
             $('#Name_autocomplete').on("focusout",function () {
                  $('#Name_autocomplete').hide();
             });
