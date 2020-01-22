@@ -1,6 +1,6 @@
 ﻿/* change the background color */
 .navbar-custom {
-  background-color: #c4902e;
+  background-color: #64caf7;
   border-radius: 5px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); }
 
@@ -25,7 +25,7 @@
 
 body {
   width: 1024px auto;
-  background-color: #c4902e; }
+  background-color: #64caf7; }
 
 .card:hover {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
@@ -77,7 +77,7 @@ a {
   color: black; }
 
 a:hover {
-  color: green; }
+  color: black; }
 
 .category-details-item {
   padding: 0.5em; }
@@ -90,12 +90,67 @@ a:hover {
     background-color: rgba(0, 0, 0, 0.22); }
 
 .autocomplete {
-  background-color: #c4902e; }
+  background-color: #64caf7; }
   .autocomplete .autocomplete-item {
     padding: 1em;
     position: relative; }
     .autocomplete .autocomplete-item:hover {
-      background-color: #c4902e;
+      background-color: #0aadf5;
       position: center;
       color: white;
       z-index: 999; }
+
+.search_2_search_result_item {
+  background-color: #64caf7;
+  padding: 1em; }
+  .search_2_search_result_item a {
+    text-decoration: none;
+    color: white; }
+  .search_2_search_result_item:hover {
+    background-color: #73d3fe; }
+
+/*Menu desktop*/
+@media only screen and (min-width: 1024px) {
+  .menu-desktop {
+    display: block; }
+  .menu-mobile {
+    display: none; }
+  .menu-item {
+    display: inline-block;
+    position: relative;
+    width: 200px;
+    margin: 10px; }
+  .menu-item a {
+    text-decoration: none; }
+  .submenu {
+    display: none;
+    position: absolute;
+    width: 500px;
+    height: 300px;
+    z-index: 999;
+    background-color: #64caf7; }
+  .submenu-item {
+    text-decoration: none;
+    color: black; }
+  .menu-item-icon {
+    margin: auto 1em; }
+  .menu-item:hover .submenu {
+    display: block; }
+  #menu {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    background-color: #64caf7;
+    color: white; }
+  #menu a {
+    color: #FFF;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.24), 2px 2px rgba(0, 0, 0, 0.12), 3px 3px rgba(0, 0, 0, 0.24);
+    text-decoration: none; } }
+
+/*Menu mobile*/
+@media only screen and (max-width: 1024px) {
+  .menu-desktop {
+    display: none; }
+  .menu-mobile {
+    display: block; }
+  body {
+    background-color: #64caf7; } }
