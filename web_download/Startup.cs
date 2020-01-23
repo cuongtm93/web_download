@@ -75,8 +75,8 @@ namespace webdownload
                 });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            
-            
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -113,12 +113,25 @@ namespace webdownload
             // Use this if you want App_Data off your project root folder
             string baseDir = env.ContentRootPath;
 
-            AppDomain.CurrentDomain.SetData("DataDirectory",  env.ContentRootPath );
+            AppDomain.CurrentDomain.SetData("DataDirectory", env.ContentRootPath);
 
 
             var db = new WebDownloadDbContext();
-            db.Database.EnsureCreated();
-            db.SaveChanges();
+            var created = db.Database.EnsureCreated();
+            if (created)
+            {
+                db.tblAccount.Add(new TblAccount()
+                {
+                    username  = "admin",
+                    activated = 1,
+                    date_of_birth = DateTime.Now,
+                    deleted = 0,
+                    Fullname = "Trần Mạnh Cường",
+                    mobile = "0353237140",
+                    password = webdownload.Areas.Admin.Controllers.AccountController.Encode("ko123456789")
+                });
+                db.SaveChanges();
+            }
         }
     }
 }

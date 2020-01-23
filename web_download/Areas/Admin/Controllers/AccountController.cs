@@ -23,7 +23,7 @@ namespace webdownload.Areas.Admin.Controllers
             return View();
         }
 
-        public string Encode(string text)
+        public static string Encode(string text)
         {
             // Create a SHA256   
             using (SHA256 sha256Hash = SHA256.Create())
