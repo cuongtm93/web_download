@@ -24,8 +24,7 @@ namespace webdownload.Controllers
         public IActionResult category_details(string url, int page)
         {
             const int perpage = 2;
-            var category = db.TblCategory.Single(r => r.url == url);
-
+            var category = db.TblCategory.SingleOrDefault(r => r.url == url);
             var softwares = db.TblSoftware.Where(r => r.categoryID == category.ID)
                 .OrderByDescending(r => r.downloaded)
                 .ThenByDescending(r => r.viewed)
@@ -51,7 +50,7 @@ namespace webdownload.Controllers
                 Softwares = softwares,
             };
             model.Top_Softwares = db.TblSoftware.OrderByDescending(r => r.downloaded).Take(8).ToList();
-            return View(model);
+         return View(model);
         }
 
         public IActionResult category_dropdown(string url)

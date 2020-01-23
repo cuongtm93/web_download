@@ -142,7 +142,7 @@ namespace webdownload.Areas.Admin.Controllers
                 db.SaveChanges();
                 return Json(new
                 {
-                    message = "Tạo mới thành công! " + _new.Entity.ID,
+                    message = "Tạo mới thành công! ",
                 });
             }
             catch (Exception e)
