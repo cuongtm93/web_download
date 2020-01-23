@@ -48,14 +48,10 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="exampleFormControlSelect2">Tiêu đề</label>
-                                <input class="form-control" type="text" placeholder="" name="Name">
+                                <input class="form-control" type="text" placeholder="" name="Name" value="@Model.Name">
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlSelect2">Tiêu đề</label>
-                    <input class="form-control" type="text" value="@Model.Name" placeholder="" name="Name">
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlSelect2">Url</label>
@@ -68,6 +64,7 @@
                 <div class="form-group">
                     <label for="exampleFormControlSelect2">Danh mục cha</label>
                     <select class="form-control" id="ParentID" name="ParentID">
+
                         @if (Model.ParentCategory == null)
                         {
                             <option value="-1" selected>Không có</option>
@@ -77,13 +74,23 @@
                             <option>Không có</option>
                         }
 
-                        @foreach (var item in Model.TopCategories)
+                        @if (Model.ParentCategory != null)
                         {
-                            if (Model.ParentCategory != null && Model.ParentCategory.ID == item.ID)
+                            @foreach (var item in Model.TopCategories)
                             {
-                                <option value="@item.ID" selected>@item.name</option>
+                                if (item.ID == Model.ParentCategory.ID)
+                                {
+                                    <option value="@item.ID" selected>@item.name</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.ID">@item.name</option>
+                                }
                             }
-                            else
+                        }
+                        else
+                        {
+                            @foreach (var item in Model.TopCategories)
                             {
                                 <option value="@item.ID">@item.name</option>
                             }
