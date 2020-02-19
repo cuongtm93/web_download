@@ -190,7 +190,7 @@ a:hover {
     .menu-item {
         display: inline-block;
         position: relative;
-        width: 200px;
+        width: 130px;
         margin: 10px;
     }
 
@@ -212,9 +212,14 @@ a:hover {
         text-decoration: none;
         color: black;
     }
-
+    .menu-item-text{
+        text-align : center;
+        display : block;
+    }
     .menu-item-icon {
-        margin: auto 1em;
+        margin: auto;
+        width: 50%;
+        text-align: center;
     }
 
     .menu-item:hover .submenu {
@@ -248,4 +253,3 @@ a:hover {
         background-color: $base-color;
     }
 }
-

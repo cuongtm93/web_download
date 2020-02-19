@@ -139,7 +139,7 @@ a:hover {
   .menu-item {
     display: inline-block;
     position: relative;
-    width: 200px;
+    width: 130px;
     margin: 10px; }
   .menu-item a {
     text-decoration: none; }
@@ -153,8 +153,13 @@ a:hover {
   .submenu-item {
     text-decoration: none;
     color: black; }
+  .menu-item-text {
+    text-align: center;
+    display: block; }
   .menu-item-icon {
-    margin: auto 1em; }
+    margin: auto;
+    width: 50%;
+    text-align: center; }
   .menu-item:hover .submenu {
     display: block; }
   #menu {
